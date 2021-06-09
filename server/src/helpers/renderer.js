@@ -21,6 +21,7 @@ export default (req, store, context) => {
   return `
     <html>
       <head>
+      <link rel="shortcut icon" href="#" />
         ${helmet.title.toString()}
         ${helmet.meta.toString()}
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">

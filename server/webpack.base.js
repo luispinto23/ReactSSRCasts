@@ -1,5 +1,6 @@
 module.exports = {
-  // Tell webpack to run babel on every file it runs through
+  mode: 'development',
+  // Run babel on every file
   module: {
     rules: [
       {
@@ -7,13 +8,9 @@ module.exports = {
         loader: 'babel-loader',
         exclude: /node_modules/,
         options: {
-          presets: [
-            'react',
-            'stage-0',
-            ['env', { targets: { browsers: ['last 2 versions'] } }]
-          ]
-        }
-      }
-    ]
-  }
+          presets: ['@babel/preset-react'],
+        },
+      },
+    ],
+  },
 };
