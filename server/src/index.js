@@ -20,6 +20,7 @@ app.use(
 app.use(express.static('public'));
 app.get('*', (req, res) => {
   const store = createStore(req);
+  console.log('🚀 ~ file: index.js ~ line 23 ~ app.get ~ store', store);
 
   const promises = matchRoutes(Routes, req.path)
     .map(({ route }) => {
