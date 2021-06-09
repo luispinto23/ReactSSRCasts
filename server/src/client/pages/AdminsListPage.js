@@ -1,36 +1,37 @@
-import React, { Component } from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { fetchAdmins } from '../actions';
 import requireAuth from '../components/hocs/requireAuth';
+import { canUseDOM } from 'exenv';
 
-class AdminsListPage extends Component {
-  componentDidMount() {
-    this.props.fetchAdmins();
+export const AdminsListPage = props => {
+  if (canUseDOM) {
+    useEffect(() => {
+      props.fetchAdmins();
+    }, [props.admins]);
   }
 
-  renderAdmins() {
-    return this.props.admins.map(admin => {
+  const renderAdmins = () => {
+    return props.admins.map(admin => {
       return <li key={admin.id}>{admin.name}</li>;
     });
-  }
+  };
 
-  render() {
-    return (
-      <div>
-        <h3>Protected list of admins</h3>
-        <ul>{this.renderAdmins()}</ul>
-      </div>
-    );
-  }
-}
+  return (
+    <div>
+      <h3>List of admins:</h3>
+      <ul>{renderAdmins()}</ul>
+    </div>
+  );
+};
 
-function mapStateToProps({ admins }) {
+const mapStateToProps = ({ admins }) => {
   return { admins };
-}
+};
 
 export default {
   component: connect(mapStateToProps, { fetchAdmins })(
     requireAuth(AdminsListPage)
   ),
-  loadData: ({ dispatch }) => dispatch(fetchAdmins())
+  loadData: ({ dispatch }) => dispatch(fetchAdmins()),
 };
